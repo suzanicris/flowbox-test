@@ -1,7 +1,11 @@
 import { Carousel as CarouselAntd } from "antd";
 import styles from './styles.module.css'
 
-const Carousel = ({ photos }: Photos) => (
+type CarouselProps = {
+  photos: Photo[];
+}
+
+const Carousel = ({ photos }: CarouselProps) => (
   <CarouselAntd>
     {photos.map(({ id, alt_description, urls: { regular } }) => (
       <img

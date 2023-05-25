@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Typography } from "antd";
 
-import LayoutForm from "components/LayoutForm";
 import Carousel from "components/Carousel";
 import Grid from "components/Grid";
+import LayoutForm from "components/LayoutForm";
+import List from "components/List";
 
 import { Layout } from "helpers/constants";
 import { useGallery } from "hooks/useGallery";
@@ -20,7 +21,7 @@ const App = () => {
     [Layout.CARD]: <Grid asCard photos={photos} />,
     [Layout.CAROUSEL]: <Carousel photos={photos} />,
     [Layout.GRID]: <Grid photos={photos} />,
-    [Layout.LIST]: <div></div>,
+    [Layout.LIST]: <List photos={photos} />,
   };
 
   return (

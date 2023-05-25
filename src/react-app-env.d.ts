@@ -8,7 +8,3 @@ type Photo = {
     regular: string;
   };
 };
-
-type Photos = {
-  photos: Photo[];
-};

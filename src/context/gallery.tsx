@@ -1,7 +1,11 @@
 import { ReactNode, createContext } from "react";
 import { useFetchPhotos } from "../hooks/useFetchPhotos";
 
-export const Context = createContext<Photos>({ photos: [] });
+type ContextProps = {
+  photos: Photo[];
+};
+
+export const Context = createContext<ContextProps>({ photos: [] });
 
 export const GalleryContext = ({ children }: { children: ReactNode }) => {
   const photos = useFetchPhotos();
