@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 24px;
+  padding: 24px;
 }
 
 .gallery {
-    align-self: normal;
+  align-self: normal;
 }

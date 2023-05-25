@@ -1,5 +1,5 @@
 import { Form, Radio } from "antd";
-import { Layout } from "../helpers/constants";
+import { Layout } from "helpers/constants";
 
 export const options = [
   { value: Layout.CARD, label: "Card" },

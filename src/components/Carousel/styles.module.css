@@ -1,0 +1,6 @@
+@import url(../main.css);
+
+.image {
+  height: var(--max-height);
+  object-fit: cover;
+}

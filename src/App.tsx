@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Typography } from "antd";
 
-import Carousel from "./components/Carousel";
-import LayoutForm from "./components/LayoutForm";
+import LayoutForm from "components/LayoutForm";
+import Carousel from "components/Carousel";
+import Grid from "components/Grid";
 
-import { useGallery } from "./hooks/useGallery";
+import { Layout } from "helpers/constants";
+import { useGallery } from "hooks/useGallery";
 
-import { Layout } from "./helpers/constants";
 import "./App.css";
 
 const { Title } = Typography;
@@ -16,9 +17,9 @@ const App = () => {
   const [layout, setLayout] = useState(Layout.CAROUSEL);
 
   const render = {
-    [Layout.CARD]: <div></div>,
+    [Layout.CARD]: <Grid asCard photos={photos} />,
     [Layout.CAROUSEL]: <Carousel photos={photos} />,
-    [Layout.GRID]: <div></div>,
+    [Layout.GRID]: <Grid photos={photos} />,
     [Layout.LIST]: <div></div>,
   };
 

@@ -2,8 +2,8 @@
 /* eslint-disable testing-library/no-container */
 /* eslint-disable testing-library/prefer-screen-queries */
 import { render } from "@testing-library/react";
-import Carousel from "../Carousel";
-import { images } from "../../mocks/mockPhotos";
+import Carousel from "./Carousel";
+import { images } from "mocks/mockPhotos";
 
 describe("Carousel", () => {
   it("should render all images", () => {
