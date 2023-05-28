@@ -1,12 +1,12 @@
 import { Carousel as CarouselAntd } from "antd";
-import styles from './styles.module.css'
+import styles from "./styles.module.css";
 
 type CarouselProps = {
   photos: Photo[];
-}
+};
 
 const Carousel = ({ photos }: CarouselProps) => (
-  <CarouselAntd>
+  <CarouselAntd className={styles.carousel} autoplay>
     {photos.map(({ id, alt_description, urls: { regular } }) => (
       <img
         key={id}

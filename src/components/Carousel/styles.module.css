@@ -1,5 +1,9 @@
 @import url(../main.css);
 
+.carousel {
+  width: var(--max-width);;
+}
+
 .image {
   height: var(--max-height);
   object-fit: cover;

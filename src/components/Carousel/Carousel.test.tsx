@@ -1,26 +1,28 @@
 /* eslint-disable testing-library/no-node-access */
-/* eslint-disable testing-library/no-container */
-/* eslint-disable testing-library/prefer-screen-queries */
-import { render } from "@testing-library/react";
+
+import { render, screen } from "@testing-library/react";
 import Carousel from "./Carousel";
-import { images } from "mocks/mockPhotos";
+import mockPhotos from "mocks/mockPhotos";
 
 describe("Carousel", () => {
-  it("should render all images", () => {
-    const { getAllByTestId } = render(<Carousel photos={images} />);
+  it("renders images in a carousel", () => {
+    render(<Carousel photos={mockPhotos} />);
 
-    const carouselImages = getAllByTestId("carousel-image");
+    const carouselImages = screen.getAllByTestId("carousel-image");
+
+    // Getting only the uniques because ant carousel duplicates image
     const uniques = carouselImages.filter(
       (carousel) => !carousel.closest(".slick-cloned")
     );
 
-    expect(uniques.length).toBe(images.length);
+    expect(uniques.length).toBe(mockPhotos.length);
 
-    expect(uniques[0]).toHaveAttribute("alt", images[0].alt_description);
-    expect(uniques[1]).toHaveAttribute("alt", images[1].alt_description);
-    expect(uniques[2]).toHaveAttribute("alt", images[2].alt_description);
-    expect(uniques[3]).toHaveAttribute("alt", images[3].alt_description);
-    expect(uniques[4]).toHaveAttribute("alt", images[4].alt_description);
-    expect(uniques[5]).toHaveAttribute("alt", images[5].alt_description);
+    mockPhotos.forEach((_, index) => {
+      const src = mockPhotos[index].urls.regular;
+      const alt = mockPhotos[index].alt_description;
+
+      expect(uniques[index]).toHaveAttribute("src", src);
+      expect(uniques[index]).toHaveAttribute("alt", alt);
+    });
   });
 });
