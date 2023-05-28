@@ -1,28 +1,40 @@
 import { useEffect, useState } from "react";
 
-const searchParams = new URLSearchParams({
+export const searchParams = new URLSearchParams({
   count: "6",
   orientation: "landscape",
 });
 
-const headers = new Headers({
+export const headers = {
   Authorization: `Client-ID ${process.env.REACT_APP_ACCESS_KEY}`,
-});
+};
+
+export const url = `${process.env.REACT_APP_API_URL}/photos/random?` + searchParams;
 
 export const useFetchPhotos = () => {
+  const [loading, setLoading] = useState(false);
+  const [fail, setFail] = useState(false);
   const [photos, setPhotos] = useState<Photo[]>([]);
 
-  const fetchPhotos = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/photos/random?` + searchParams, { headers })
-      .then((response) => response.json())
-      .then((data: Photo[]) => setPhotos(data));
+  const fetchPhotos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(url, { headers });
+      const json = await response.json();
+      setPhotos(json);
+    } catch (err) {
+      console.warn(err);
+      setFail(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (photos.length) return;
 
     fetchPhotos();
-  });
+  }, [photos.length]);
 
-  return photos;
+  return { photos, loading, fail };
 };

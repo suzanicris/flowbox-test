@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import "antd/dist/reset.css";
 
-import { GalleryContext } from "./context/gallery";
+import { GalleryContext } from "./context/GalleryContext";
 import App from "./App";
 
 import reportWebVitals from "./reportWebVitals";

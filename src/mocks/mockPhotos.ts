@@ -1,4 +1,4 @@
-export const images = [
+const mockPhotos = [
   {
     id: "9nxV2JdaVWo",
     description:
@@ -58,10 +58,4 @@ export const images = [
   },
 ];
 
-const mockFetch = async () => ({
-  ok: true,
-  status: 200,
-  json: async () => images,
-});
-
-export default mockFetch;
+export default mockPhotos;
