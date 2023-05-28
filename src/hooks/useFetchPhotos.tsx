@@ -9,7 +9,8 @@ export const headers = {
   Authorization: `Client-ID ${process.env.REACT_APP_ACCESS_KEY}`,
 };
 
-export const url = `${process.env.REACT_APP_API_URL}/photos/random?` + searchParams;
+export const url =
+  `${process.env.REACT_APP_API_URL}/photos/random?` + searchParams;
 
 export const useFetchPhotos = () => {
   const [loading, setLoading] = useState(false);
@@ -18,8 +19,14 @@ export const useFetchPhotos = () => {
 
   const fetchPhotos = async () => {
     setLoading(true);
+
     try {
       const response = await fetch(url, { headers });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const json = await response.json();
       setPhotos(json);
     } catch (err) {

@@ -25,9 +25,8 @@
 }
 
 .image {
-  max-width: var(--max-width);
+  width: var(--max-width) !important;
   height: var(--max-height) !important;
-  width: 100%;
   object-fit: cover;
 }
 

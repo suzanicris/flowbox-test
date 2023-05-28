@@ -11,6 +11,7 @@ describe("useFetchPhotos", () => {
 
   it("fetches photos and sets loading and photos state", async () => {
     const mockResponse = {
+      ok: true,
       json: jest.fn().mockResolvedValue(mockPhotos),
     };
     (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
