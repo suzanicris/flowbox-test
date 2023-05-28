@@ -7,7 +7,20 @@
   gap: 16px;
 }
 
-.card {
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card_regular{
+  width: var(--max-width);
+}
+
+.card_horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: var(--max-width);
 }
 
@@ -16,4 +29,15 @@
   height: var(--max-height) !important;
   width: 100%;
   object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .card_horizontal {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .card_horizontal .description {
+    width: var(--max-width);
+  }
 }

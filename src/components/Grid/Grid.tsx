@@ -1,4 +1,4 @@
-import { Card, Image, Typography } from "antd";
+import { Card, Typography } from "antd";
 import styles from "./styles.module.css";
 
 const { Meta } = Card;
@@ -6,54 +6,58 @@ const { Paragraph } = Typography;
 
 type GridProps = {
   photos: Photo[];
-  asCard?: boolean;
+  onlyImages?: boolean;
+  cardHorizontal?: boolean;
 };
 
-const Grid = ({ photos, asCard }: GridProps) => {
-  if (asCard) {
+const Grid = ({ photos, onlyImages, cardHorizontal }: GridProps) => {
+  const renderImage = ({ id, urls, alt_description }: Photo) => (
+    <img
+      key={id}
+      alt={alt_description}
+      src={urls.regular}
+      className={styles.image}
+      data-testid="image"
+    />
+  );
+
+  const renderCard = (photo: Photo) => {
+    const { id, alt_description, description } = photo;
+
     return (
-      <div className={styles.grid}>
-        {photos.map((photo) => (
-          <Card
-            key={photo.id}
-            className={styles.card}
-            cover={
-              <img
-                alt={photo.alt_description}
-                src={photo.urls.regular}
-                className={styles.image}
-              />
-            }
-          >
-            <Meta
-              description={
-                <Paragraph
-                  ellipsis={{ rows: 3, expandable: true, symbol: "more" }}
-                >
-                  {photo.description ?? photo.alt_description}
-                </Paragraph>
-              }
-            />
-          </Card>
-        ))}
+      <Card
+        key={id}
+        cover={renderImage(photo)}
+        data-testid={cardHorizontal ? "card-horizontal" : "card-regular"}
+        className={
+          cardHorizontal ? styles.card_horizontal : styles.card_regular
+        }
+      >
+        <Meta
+          data-testid="description"
+          className={styles.description}
+          description={
+            <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: "more" }}>
+              {description ?? alt_description}
+            </Paragraph>
+          }
+        />
+      </Card>
+    );
+  };
+
+  if (onlyImages) {
+    return (
+      <div className={styles.grid} data-testid="grid-only-images">
+        {photos.map(renderImage)}
       </div>
     );
   }
 
   return (
-    <Image.PreviewGroup>
-      <div className={styles.grid}>
-        {photos.map((photo) => (
-          <Image
-            key={photo.id}
-            width={400}
-            alt={photo.alt_description}
-            src={photo.urls.regular}
-            className={styles.image}
-          />
-        ))}
-      </div>
-    </Image.PreviewGroup>
+    <div className={cardHorizontal ? styles.list : styles.grid}>
+      {photos.map(renderCard)}
+    </div>
   );
 };
 
