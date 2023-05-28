@@ -1,8 +1,6 @@
-/* eslint-disable testing-library/prefer-screen-queries */
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LayoutForm, { options } from "../LayoutForm";
-import { Layout } from "../../helpers/constants";
 
 describe("LayoutForm", () => {
   test("options", () => {
@@ -28,31 +26,32 @@ Array [
 `);
   });
 
-  it("should render 4 radios button", () => {
+  it("renders layout options", () => {
     const onChange = jest.fn();
 
-    const { getByLabelText } = render(<LayoutForm onChange={onChange} />);
+    render(<LayoutForm onChange={onChange} />);
 
-    const card = getByLabelText(/card/i);
-    const carousel = getByLabelText(/carousel/i);
-    const grid = getByLabelText(/grid/i);
-    const list = getByLabelText(/list/i);
+    options.forEach((option) => {
+      const radioLabel = screen.getByLabelText(option.label);
+      expect(radioLabel).toBeInTheDocument();
+    });
+  });
 
-    expect(card).toBeInTheDocument();
-    expect(carousel).toBeInTheDocument();
-    expect(grid).toBeInTheDocument();
-    expect(list).toBeInTheDocument();
+  it("calls onChange with selected layout", () => {
+    const onChange = jest.fn();
+    render(<LayoutForm onChange={onChange} />);
 
-    userEvent.click(card);
-    expect(onChange).toHaveBeenCalledWith(Layout.CARD);
+    const radioInput = screen.getByLabelText(options[2].label);
+    userEvent.click(radioInput);
 
-    userEvent.click(carousel);
-    expect(onChange).toHaveBeenCalledWith(Layout.CAROUSEL);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(options[2].value);
+  });
 
-    userEvent.click(grid);
-    expect(onChange).toHaveBeenCalledWith(Layout.GRID);
+  it("sets initial layout value", () => {
+    render(<LayoutForm onChange={jest.fn()} />);
 
-    userEvent.click(list);
-    expect(onChange).toHaveBeenCalledWith(Layout.LIST);
+    const radioInput = screen.getByLabelText(options[1].label);
+    expect(radioInput).toBeChecked();
   });
 });
