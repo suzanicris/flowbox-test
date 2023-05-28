@@ -15,6 +15,7 @@ User can quickly change between differents layout types.
 ## Getting started
 
 1) Clone this repository
-2) In the project directory, run: `yarn install`
-3) Then run: `yarn start`
-4) Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2) Copy values from .env.example into .env file: `cp .env.example .env`
+3) In the project directory, run: `yarn install`
+4) Then run: `yarn start`
+5) Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
