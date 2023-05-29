@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { GalleryContext, Context, ContextProps } from "./GalleryContext";
+import userEvent from "@testing-library/user-event";
 import { useFetchPhotos } from "hooks/useFetchPhotos";
 import mockPhotos from "mocks/mockPhotos";
+import { GalleryContext, Context, ContextProps } from "./GalleryContext";
 
 jest.mock("hooks/useFetchPhotos");
 
@@ -10,7 +11,6 @@ describe("GalleryContext", () => {
     photos: mockPhotos,
     loading: true,
     fail: false,
-    toggleUseMock: jest.fn(),
   };
 
   beforeEach(() => {
@@ -26,6 +26,7 @@ describe("GalleryContext", () => {
               <span>{context.loading ? "Loading" : "Not Loading"}</span>
               <span>{context.fail ? "Failed" : "Not Failed"}</span>
               <span>{context.photos.length}</span>
+              <span>{context.useMock ? "Using mock" : "Not using mock"}</span>
               <button onClick={context.toggleUseMock}>Toggle Mock</button>
             </div>
           )}
@@ -36,5 +37,9 @@ describe("GalleryContext", () => {
     expect(screen.getByText("Loading")).toBeInTheDocument();
     expect(screen.getByText("Not Failed")).toBeInTheDocument();
     expect(screen.getByText(mockPhotos.length.toString())).toBeInTheDocument();
+    expect(screen.getByText("Not using mock")).toBeInTheDocument();
+
+    userEvent.click(screen.getByText('Toggle Mock'));
+    expect(screen.getByText("Using mock")).toBeInTheDocument();
   });
 });
